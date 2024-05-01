@@ -1,0 +1,18 @@
+.header {
+    display: flex;
+    justify-content: center;
+    gap: 50px;
+}
+
+.headerText {
+    font-size: 24px;
+    color:  #fff;
+}
+
+.headerText:hover {
+    color: orange;
+}
+
+.active {
+    background-color: cadetblue;
+}
