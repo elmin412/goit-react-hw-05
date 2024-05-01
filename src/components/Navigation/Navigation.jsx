@@ -12,10 +12,6 @@ export default function Navigation() {
                 <NavLink className={({ isActive }) => {
                 return clsx(style.headerText, isActive && style.active)
                 }} to="/movies" >Movies</NavLink>
-                <NavLink className={({ isActive }) => {
-                return clsx(style.headerText, isActive && style.active)
-                }} to="/search/movie" >Search</NavLink>
-
             </nav>
     )
 }

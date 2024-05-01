@@ -1,8 +1,9 @@
 import { Link, useLocation, useParams, Outlet } from "react-router-dom"
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef, Suspense } from "react";
 import Loader from "../../components/Loader/Loader";
 import { getMoviesById } from '../../movies-api'
 import ErrorPage from '../../components/ErrorPage/ErrorPage'
+import style from "../MovieDetailsPage/MovieDetailsPage.module.css"
 
 export default function MovieDetailsPage() {
     const [loading, setLoading] = useState(false);
@@ -11,8 +12,6 @@ export default function MovieDetailsPage() {
     const { movieId } = useParams()
     const location = useLocation();
     const backLinkHrefRef = useRef(location.state) ?? "/movies";
-
-    console.log(movieId)
 
     useEffect(() => {
         async function fetchMovies() {
@@ -26,6 +25,10 @@ export default function MovieDetailsPage() {
         }
         fetchMovies()
     }, [movieId]);
+
+    const defaultImg = 'https://dl-media.viber.com/10/share/2/long/vibes/icon/image/0x0/95e0/5688fdffb84ff8bed4240bcf3ec5ac81ce591d9fa9558a3a968c630eaba195e0.jpg'
+
+    // const imageBaseURL = "https://image.tmdb.org/t/p/w500";
     return (
         <div>
             <div>
@@ -35,14 +38,17 @@ export default function MovieDetailsPage() {
             {loading && <Loader />}
             {error && <ErrorPage />}
             {movies && (
-                <ul>
+                <ul className={style.listHeader}>
                     <p>{movies.title}</p>
-                    <img src="https://via.placeholder.com/480x360" alt="" />
-                    {movies.genres.map((itemGenres) => (
-                        <li key={itemGenres.id}>
-                            <p>{itemGenres.name}</p>
+                    <img src={defaultImg} alt="poster" />
+                    
+                    <p>GENRES</p>
+                    {movies.genres.map((movie) => (
+                        <li key={movie.id}>
+                            <p>{movie.name}</p>
                         </li>
                     ))}
+                    <p>OVERVIEW</p>
                     <li>
                         <p>{movies.overview}</p>
                     </li>
@@ -51,8 +57,8 @@ export default function MovieDetailsPage() {
                     </li>
                 </ul>
             )}
-            <p>Addition information</p>
-            <ul>
+            <p>ADDITION INFORMATION</p>
+            <ul className={style.castRewivew}>
                 <li>
                     <Link to="cast">Cast</Link>
                 </li>
@@ -60,7 +66,9 @@ export default function MovieDetailsPage() {
                     <Link to="reviews">Review</Link>
                 </li> 
             </ul>
+            <Suspense fallback={<p>wait loading...</p>}>
             <Outlet />
+            </Suspense>
         </div>
     )
 }

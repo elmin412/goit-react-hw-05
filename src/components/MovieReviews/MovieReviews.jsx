@@ -3,7 +3,7 @@ import { getMoviesReviews } from "../../movies-api";
 import { useParams } from "react-router-dom";
 import Loader from "../Loader/Loader";
 import ErrorPage from "../ErrorPage/ErrorPage"
-
+import style from "../MovieReviews/MovieReview.module.css"
 
 export default function MovieReview() {
     const [loading, setLoading] = useState(false);
@@ -31,7 +31,7 @@ export default function MovieReview() {
                 <ul>
                     {reviews.results.map((item) => {
                         return (
-                            <li key={item.id}>
+                            <li key={item.id}  className={style.optionReview}>
                                 <p>{item.author}</p>
                                 <p>{item.content}</p>
                             </li>

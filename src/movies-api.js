@@ -29,17 +29,14 @@ export const getMoviesById = async (movieId) => {
 
 
 export const getMoviesSearch = async (searchMovie) => {
-  const url = `https://api.themoviedb.org/3/search/movie`
-  
-  const response = await axios.get(url,options, {
-    params: {
-      language: "en-US",
-      query: searchMovie,
-      page: 1,
-    }
-  });
+  const url = `https://api.themoviedb.org/3/search/movie`;
+  const params = {
+    language: "en-US",
+    query: searchMovie,
+    page: 1,
+  };
+  const response = await axios.get(url, { params, ...options });
   return response.data.results;
-  
 };
 
 export const getMoviesCast = async (movieId) => {

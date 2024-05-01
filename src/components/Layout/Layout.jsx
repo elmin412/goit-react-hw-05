@@ -1,10 +1,14 @@
+import { Suspense } from 'react'
 import Navigation from '../Navigation/Navigation'
 
 export default function Layout({children}) {
     return (
         <div>
             <Navigation />
-            {children}
+            <Suspense allback={null}>
+                {children}
+            </Suspense>
+            
         </div>
     )
 }

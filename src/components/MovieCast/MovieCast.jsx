@@ -3,6 +3,7 @@ import { getMoviesCast } from "../../movies-api";
 import { useParams } from "react-router-dom";
 import Loader from "../Loader/Loader";
 import ErrorPage from "../ErrorPage/ErrorPage"
+import style from "../MovieCast/MovieCast.module.css"
 
 export default function MovieCast() {
 
@@ -24,6 +25,7 @@ export default function MovieCast() {
         fetchMoviesCast()
     }, [movieId]);
 
+    const imageBaseURL = "https://image.tmdb.org/t/p/w500";
     return (
         <div>
             {loading && <Loader />}
@@ -31,9 +33,11 @@ export default function MovieCast() {
             {cast && (
                 <ul>
                     {cast.cast.map((item) => {
+                        
                         return (
-                            <li key={item.id}>
-                                <img src="https://via.placeholder.com/480x360" alt="" />
+                            
+                            <li key={item.id} className={style.optionCast}>
+                                 <img src={`${imageBaseURL}${item.profile_path}`} alt="" />
                                 <p>{item.name}</p>
                                 <p>{item.character}</p>
                             </li>

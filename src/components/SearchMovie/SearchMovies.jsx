@@ -1,5 +1,7 @@
-export default function SearchMovies({onSubmit}) {
+import style from "../SearchMovie/SearchMovie.module.css"
 
+export default function SearchMovies({ onSubmit }) {
+    
     const handleSubmit = (e) => {
         e.preventDefault();
         const form = e.target;
@@ -11,8 +13,8 @@ export default function SearchMovies({onSubmit}) {
     }
     
     return (
-        <div> 
-            <form onSubmit={handleSubmit}> 
+        <div > 
+            <form onSubmit={handleSubmit} className={style.searchLine}> 
                 <input type="text"
                 placeholder="Search images and photos"
                 autoComplete="off"
