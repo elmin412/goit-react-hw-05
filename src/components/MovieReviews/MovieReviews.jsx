@@ -5,11 +5,12 @@ import Loader from "../Loader/Loader";
 import ErrorPage from "../ErrorPage/ErrorPage"
 import style from "../MovieReviews/MovieReview.module.css"
 
+
 export default function MovieReview() {
     const [loading, setLoading] = useState(false);
-    const [reviews, setReviews] = useState(null)
-    const [error, setError] = useState(false)
-    const { movieId } = useParams()
+    const [reviews, setReviews] = useState(null);
+    const [error, setError] = useState(false);
+    const { movieId } = useParams();
 
     useEffect(() => {
         async function fetchMoviesReviews() {
@@ -23,22 +24,21 @@ export default function MovieReview() {
         }
         fetchMoviesReviews()
     }, [movieId]);
+
     return (
         <div>
             {loading && <Loader />}
             {error && <ErrorPage />}
-            {reviews && (
-                <ul>
-                    {reviews.results.map((item) => {
-                        return (
-                            <li key={item.id}  className={style.optionReview}>
-                                <p>{item.author}</p>
-                                <p>{item.content}</p>
-                            </li>
-                        )
-                    })}
-                </ul>
-            )}
+            {reviews && reviews.results && reviews.results.length > 0 ? (
+            <ul>
+                {reviews.results.map((item) => (
+                    <li key={item.id} className={style.optionReview}>
+                        <p>{item.author}</p>
+                        <p>{item.content}</p>
+                    </li>
+                ))}
+            </ul>
+            ) : ("We don't have any reviews for this movie")}
         </div>
     )
 }

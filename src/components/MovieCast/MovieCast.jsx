@@ -26,6 +26,7 @@ export default function MovieCast() {
     }, [movieId]);
 
     const imageBaseURL = "https://image.tmdb.org/t/p/w500";
+    
     return (
         <div>
             {loading && <Loader />}
